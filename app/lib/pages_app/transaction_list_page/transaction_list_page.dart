@@ -397,7 +397,7 @@ class MonthHeader extends StatelessWidget {
                                 PieChartSectionData(
                                   value: 2,
                                   showTitle: false,
-                                  color: Palette.lightBlue,
+                                  color: Colors.white,
                                 ),
                               ],
                               borderData: FlBorderData(show: false),
