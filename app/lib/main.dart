@@ -9,6 +9,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'SconTreeNo',
       theme: ThemeData(
+        fontFamily: 'GoogleSans',
         primarySwatch: Colors.green,
       ),
       home: HomePage(),
