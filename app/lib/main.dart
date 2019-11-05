@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:scontreeno/pages_app/home/home_page.dart';
+import 'package:provider/provider.dart';
+import 'package:scontreeno/pages_app/transaction_list_page/transaction_list_page.dart';
+import 'package:scontreeno/states/general_state.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(
+      ChangeNotifierProvider(
+        builder: (context) => GeneralState(),
+        child: MyApp(),
+      ),
+    );
 
 class MyApp extends StatelessWidget {
   @override
