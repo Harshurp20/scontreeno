@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'GoogleSans',
         primarySwatch: Colors.green,
       ),
-      home: HomePage(),
+      home: SafeArea(child: TransactionListPage()),
     );
   }
 }

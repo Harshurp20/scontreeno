@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:provider/provider.dart';
 import 'package:scontreeno/misc/palette.dart';
+import 'package:scontreeno/pages_app/transaction_list_page/widgets/headerWidget.dart';
 import 'package:scontreeno/pages_app/transaction_list_page/widgets/newappbar.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:scontreeno/states/general_state.dart';
@@ -25,10 +26,11 @@ class _TransactionListPageState extends State<TransactionListPage> {
 
   void _scrollNotifier() {
     if ((!_showMonthHeader && _scrollController.offset > 200.0) ||
-        (_showMonthHeader && _scrollController.offset <= 200.0))
+        (_showMonthHeader && _scrollController.offset <= 200.0)) {
       setState(() {
         _showMonthHeader = !_showMonthHeader;
       });
+    }
   }
 
   @override
@@ -89,7 +91,7 @@ class _TransactionListPageState extends State<TransactionListPage> {
       body: Stack(
         alignment: AlignmentDirectional.topCenter,
         children: <Widget>[
-          NewAppBar(),
+          NewAppBar(_showMonthHeader),
           ListView(
             controller: _scrollController,
             padding: EdgeInsets.only(top: 230.0, left: 16.0, right: 16.0),
@@ -249,22 +251,7 @@ class _TransactionListPageState extends State<TransactionListPage> {
               ),
             ],
           ),
-          if (_showMonthHeader)
-            AnimatedOpacity(
-              opacity: _showMonthHeader ? 1 : 0,
-              duration: Duration(seconds: 1),
-              child: Material(
-                borderRadius: BorderRadius.circular(12.0),
-                elevation: 6.0,
-                shadowColor: Colors.black54,
-                child: Container(
-                  width: double.infinity,
-                  height: 256.0,
-                  color: Palette.lightBlue,
-                  child: Text('coglione'),
-                ),
-              ),
-            ),
+          _showMonthHeader ? HeaderWidget() : Container(),
         ],
       ),
     );
