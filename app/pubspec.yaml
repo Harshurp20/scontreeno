@@ -4,7 +4,7 @@ description: A new Flutter project.
 version: 0.0.1+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
   flutter:
@@ -12,6 +12,7 @@ dependencies:
 
   provider: ^3.1.0+1
   fl_chart: ^0.4.1
+  flutter_nfc_reader: ^0.1.0
 
 dev_dependencies:
   flutter_test:
