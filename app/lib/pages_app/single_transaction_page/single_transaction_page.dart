@@ -84,11 +84,50 @@ class _SingleTransactionPageState extends State<SingleTransactionPage> {
             child: CustomPaint(
               painter: RecepitPainter(),
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(16.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[],
+                  children: List.generate(
+                    widget.receipt.articles.length + 1,
+                    (index) => index == widget.receipt.articles.length
+                        ? Padding(
+                            padding: EdgeInsets.only(top: 16.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: <Widget>[
+                                Text(
+                                  'Totale: ${widget.receipt.articles.fold<double>(0.0, (prev, next) => prev + next.tot).toStringAsFixed(2)}',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 18.0,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text(
+                                widget.receipt.articles[index].title,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 18.0,
+                                ),
+                              ),
+                              Text(
+                                widget.receipt.articles[index].tot
+                                        .toStringAsFixed(2) +
+                                    '€',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 18.0,
+                                ),
+                              ),
+                            ],
+                          ),
+                  ),
                 ),
               ),
             ),
