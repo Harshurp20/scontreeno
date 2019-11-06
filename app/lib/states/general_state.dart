@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:collection';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,17 @@ class GeneralState with ChangeNotifier {
           Discount(title: 'Cupon digitale', discount: 0.70),
         ]),
         TransactionArticle('Big Mac', 4.50),
+        TransactionArticle('McFlurry', 2.30),
+        TransactionArticle('McFlurry', 2.30),
+        TransactionArticle('McFlurry', 2.30),
+        TransactionArticle('McFlurry', 2.30),
+        TransactionArticle('Big Mac', 4.50),
+        TransactionArticle('McFlurry', 2.30),
+        TransactionArticle('McFlurry', 2.30),
+        TransactionArticle('McFlurry', 2.30),
+        TransactionArticle('McFlurry', 2.30),
+        TransactionArticle('Big Mac', 4.50),
+        TransactionArticle('McFlurry', 2.30),
         TransactionArticle('McFlurry', 2.30),
       ],
     ),

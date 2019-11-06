@@ -1,13 +1,16 @@
+import 'dart:async';
+
+import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:scontreeno/misc/palette.dart';
 import 'package:scontreeno/models/receipt.dart';
 import 'package:scontreeno/pages_app/single_transaction_page/receiptPainter.dart';
+import 'package:scontreeno/pages_app/transactions_list/widgets/animation_widget.dart';
 import 'package:scontreeno/states/general_state.dart';
 
 const double RECTANGLE_WIDTH = 330.0;
 
-GeneralState _notifier;
 enum Mesi {
   Gennaio,
   Febbraio,
@@ -23,13 +26,28 @@ enum Mesi {
   Dicembre
 }
 
-class SingleTransactionPage extends StatelessWidget {
+class SingleTransactionPage extends StatefulWidget {
   final FiscalReceipt receipt;
   const SingleTransactionPage({Key key, this.receipt}) : super(key: key);
 
   @override
+  _SingleTransactionPageState createState() => _SingleTransactionPageState();
+}
+
+class _SingleTransactionPageState extends State<SingleTransactionPage> {
+  bool receiptAnimation = false;
+  double receiptHeigth = 0.0;
+  @override
   Widget build(BuildContext context) {
-    if (_notifier == null) _notifier = Provider.of<GeneralState>(context);
+    if (!receiptAnimation)
+      Timer(const Duration(milliseconds: 3500), () {
+        if (mounted) {
+          receiptHeigth = widget.receipt.articles.length * 26.0 + 60.0;
+          setState(() {
+            receiptAnimation = true;
+          });
+        }
+      });
     return Scaffold(
       body: Stack(
         overflow: Overflow.visible,
@@ -63,19 +81,62 @@ class SingleTransactionPage extends StatelessWidget {
               ),
             ),
           ),
+          if (!receiptAnimation)
+            Padding(
+              child: AnimationWidget(),
+              padding: EdgeInsets.only(top: 350.0),
+            ),
           AnimatedPositioned(
-            duration: Duration(milliseconds: 800),
+            duration: Duration(milliseconds: 900),
             width: RECTANGLE_WIDTH - 32.0,
-            height: 350.0,
-            top: 248.0,
+            height: receiptHeigth,
+            top: receiptAnimation ? 248.0 : 248.0 - receiptHeigth,
+            curve: Curves.elasticInOut,
             child: CustomPaint(
               painter: RecepitPainter(),
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[],
+                padding: const EdgeInsets.all(16.0),
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: widget.receipt.articles.length + 1,
+                  itemBuilder: (context, index) =>
+                      index == widget.receipt.articles.length
+                          ? Padding(
+                              padding: EdgeInsets.only(top: 16.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
+                                  Text(
+                                    'Totale: ${widget.receipt.articles.fold<double>(0.0, (prev, next) => prev + next.tot).toStringAsFixed(2)}€',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 18.0,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text(
+                                  widget.receipt.articles[index].title,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 18.0,
+                                  ),
+                                ),
+                                Text(
+                                  widget.receipt.articles[index].tot
+                                          .toStringAsFixed(2) +
+                                      '€',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 18.0,
+                                  ),
+                                ),
+                              ],
+                            ),
                 ),
               ),
             ),
@@ -95,7 +156,9 @@ class SingleTransactionPage extends StatelessWidget {
                     color: Colors.white,
                     size: 32.0,
                   ),
-                  onPressed: () => Navigator.pop(context),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
                 ),
                 Center(
                   child: Column(
@@ -107,22 +170,22 @@ class SingleTransactionPage extends StatelessWidget {
                           shadowColor: Colors.black38,
                           shape: CircleBorder(),
                           clipBehavior: Clip.antiAlias,
-                          child: receipt.shopImageURL != null
+                          child: widget.receipt.shopImageURL != null
                               ? Image.asset(
-                                  receipt.shopImageURL,
+                                  widget.receipt.shopImageURL,
                                   fit: BoxFit.cover,
                                 )
                               : SizedBox.expand(
                                   child: Container(
-                                    color: receipt is FiscalReceipt
+                                    color: widget.receipt is FiscalReceipt
                                         ? Palette.lightBlue
                                         : Colors.white,
                                     child: Center(
                                       child: Text(
-                                        receipt.shopName.substring(0, 1),
+                                        widget.receipt.shopName.substring(0, 1),
                                         style: TextStyle(
                                           fontSize: 20.0,
-                                          color: receipt is FiscalReceipt
+                                          color: widget.receipt is FiscalReceipt
                                               ? Colors.white
                                               : Palette.lightBlue,
                                           fontWeight: FontWeight.bold,
@@ -137,19 +200,19 @@ class SingleTransactionPage extends StatelessWidget {
                         height: 8.0,
                       ),
                       Text(
-                        receipt.shopName,
+                        widget.receipt.shopName,
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        '${receipt.time.day} ' +
+                        '${widget.receipt.time.day} ' +
                             Mesi.values
-                                .toList()[receipt.time.month]
+                                .toList()[widget.receipt.time.month]
                                 .toString()
                                 .split('.')[1] +
-                            ' ${receipt.time.year}',
+                            ' ${widget.receipt.time.year}',
                         style: TextStyle(color: Colors.white),
                       ),
                     ],
