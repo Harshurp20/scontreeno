@@ -4,6 +4,8 @@ import 'package:scontreeno/misc/palette.dart';
 import 'package:scontreeno/pages_app/single_transaction_page/receiptPainter.dart';
 import 'package:scontreeno/states/general_state.dart';
 
+const double RECTANGLE_WIDTH = 330.0;
+
 GeneralState _notifier;
 enum Mesi {
   Gennaio,
@@ -51,7 +53,7 @@ class SingleTransactionPage extends StatelessWidget {
                     elevation: 0.0,
                     color: Color(0xFF10645B),
                     child: SizedBox(
-                      width: 300.0,
+                      width: RECTANGLE_WIDTH,
                       height: 8.0,
                     ),
                   ),
@@ -61,15 +63,22 @@ class SingleTransactionPage extends StatelessWidget {
           ),
           AnimatedPositioned(
             duration: Duration(milliseconds: 800),
-            width: 256.0,
-            height: 256.0,
+            width: RECTANGLE_WIDTH - 32.0,
+            height: 350.0,
             top: 248.0,
             child: CustomPaint(
-              foregroundPainter: RecepitPainter(),
-              
+              painter: RecepitPainter(),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[],
+                ),
+              ),
             ),
           ),
-          /* Container(
+          Container(
             height: 251.0,
             width: double.infinity,
             color: Palette.lightBlue,
@@ -132,7 +141,7 @@ class SingleTransactionPage extends StatelessWidget {
                       elevation: 0.0,
                       color: Color(0xFF10645B),
                       child: SizedBox(
-                        width: 300.0,
+                        width: RECTANGLE_WIDTH,
                         height: 8.0,
                       ),
                     ),
@@ -140,7 +149,7 @@ class SingleTransactionPage extends StatelessWidget {
                 ),
               ],
             ),
-          ), */
+          ),
         ],
       ),
     );

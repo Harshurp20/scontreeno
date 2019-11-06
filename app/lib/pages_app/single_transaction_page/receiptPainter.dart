@@ -15,7 +15,6 @@ class RecepitPainter extends CustomPainter {
 
     Path path = new Path();
     path.lineTo(0, size.height);
-    print("heigth:" + size.height.toString());
 
     for (int i = 0; i < SPIKES_NUMBER * 2; i++) {
       if (i % 2 != 0)
