@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_qr_reader/qrcode_reader_view.dart';
+import 'package:scontreeno/pages_app/misc/success_dialog.dart';
 
 class QrScanPage extends StatefulWidget {
   @override
@@ -14,6 +15,10 @@ class _QrScanPageState extends State<QrScanPage> {
         key: qrViewKey,
         onScan: (String token) {
           Navigator.pop(context, token);
+          showDialog(
+            context: context,
+            builder: (context) => SuccessDialog() /* : ErrorDialog() */,
+          );
           return null;
         },
         helpWidget: Text('Posiziona il codice QR all\'interno del quadrato'),
@@ -22,23 +27,4 @@ class _QrScanPageState extends State<QrScanPage> {
   }
 
   GlobalKey<QrcodeReaderViewState> qrViewKey = GlobalKey();
-
-  Future onScan(String data) async {
-    await showCupertinoDialog(
-      context: context,
-      builder: (context) {
-        return CupertinoAlertDialog(
-          title: Text("扫码结果"),
-          content: Text(data),
-          actions: <Widget>[
-            CupertinoDialogAction(
-              child: Text("确认"),
-              onPressed: () => Navigator.pop(context),
-            )
-          ],
-        );
-      },
-    );
-    qrViewKey.currentState.startScan();
-  }
 }

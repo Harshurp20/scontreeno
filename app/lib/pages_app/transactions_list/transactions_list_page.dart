@@ -93,14 +93,7 @@ class _TransactionsListPageState extends State<TransactionsListPage> {
                 child: Switch(
                   value: _notifier.nfcStatus,
                   activeColor: Colors.white,
-                  onChanged: (_) {
-                    showDialog(
-                      context: context,
-                      builder: (context) =>
-                          _notifier.nfcStatus ? SuccessDialog() : ErrorDialog(),
-                    );
-                    _notifier.changeNFCState();
-                  },
+                  onChanged: (_) => _notifier.changeNFCState(),
                 ),
               ),
             ],
