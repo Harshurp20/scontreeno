@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:scontreeno/misc/palette.dart';
 
-class NewAppBar extends StatelessWidget {
+class StatsAppbar extends StatelessWidget {
   final bool hide;
-  const NewAppBar({Key key, this.hide}) : super(key: key);
+  const StatsAppbar({Key key, this.hide}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,9 +12,10 @@ class NewAppBar extends StatelessWidget {
       curve: Curves.easeOut,
       opacity: hide ? 0.0 : 1.0,
       child: Container(
-        height: 256.0,
+        height: 256.0 + kToolbarHeight,
         width: double.infinity,
-        padding: EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(8.0)
+            .copyWith(top: 8.0 + MediaQuery.of(context).padding.top),
         child: Stack(
           children: <Widget>[
             Padding(
