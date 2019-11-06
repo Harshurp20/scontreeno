@@ -12,7 +12,7 @@ class StatsAppbar extends StatelessWidget {
       curve: Curves.easeOut,
       opacity: hide ? 0.0 : 1.0,
       child: Container(
-        height: 256.0 + kToolbarHeight,
+        height: 216.0 + kToolbarHeight,
         width: double.infinity,
         padding: EdgeInsets.all(8.0)
             .copyWith(top: 8.0 + MediaQuery.of(context).padding.top),

@@ -1,17 +1,41 @@
-class Receipt {
+import 'package:flutter/material.dart';
+import 'package:scontreeno/models/transaction_article.dart';
+
+abstract class Receipt {
   String shopName;
-  double tot;
   String shopImageURL;
   DateTime time;
-  final bool isFiscale;
-  final bool isTemporaneo;
 
-  Receipt({
-    this.shopImageURL,
+  Receipt(
     this.shopName,
-    this.tot,
-    this.isFiscale,
-    this.isTemporaneo,
-    this.time,
+    this.time, {
+    this.shopImageURL,
   });
+}
+
+class FiscalReceipt extends Receipt {
+  List<TransactionArticle> articles;
+
+  FiscalReceipt({
+    @required String shopName,
+    @required this.articles,
+    @required DateTime time,
+    String shopImageURL,
+  }) : super(shopName, time, shopImageURL: shopImageURL);
+
+  double get total =>
+      articles.fold<double>(0.0, (prev, article) => prev + article.tot);
+}
+
+class TempReceipt extends Receipt {
+  String description;
+  String data;
+
+  TempReceipt({
+    @required this.data,
+    @required this.description,
+    @required String shopName,
+    @required DateTime time,
+    String shopImageURL,
+  }) : super(shopName, time, shopImageURL: shopImageURL);
 }

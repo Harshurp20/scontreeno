@@ -5,6 +5,7 @@ import 'package:scontreeno/misc/consts.dart';
 import 'package:scontreeno/misc/palette.dart';
 import 'package:scontreeno/pages_app/transactions_list/widgets/month_header.dart';
 import 'package:scontreeno/pages_app/transactions_list/widgets/month_tile.dart';
+import 'package:scontreeno/pages_app/transactions_list/widgets/receipt_tile.dart';
 import 'package:scontreeno/pages_app/transactions_list/widgets/search_bar.dart';
 import 'package:scontreeno/pages_app/transactions_list/widgets/stats_appbar.dart';
 import 'package:scontreeno/states/general_state.dart';
@@ -112,31 +113,41 @@ class _TransactionsListPageState extends State<TransactionsListPage> {
         alignment: AlignmentDirectional.topCenter,
         children: <Widget>[
           StatsAppbar(hide: _showMonthHeader),
-          ListView(
+          CustomScrollView(
             controller: _scrollController,
-            padding: EdgeInsets.only(top: 230.0, left: 16.0, right: 16.0),
-            children: <Widget>[
-              MonthTile(),
-              SearchBar(),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: MonthTile(),
+            slivers: <Widget>[
+              SliverToBoxAdapter(child: SizedBox(height: 230.0)),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 16.0,
+                  ),
+                  child: MonthTile(),
+                ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: MonthTile(),
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, i) =>
+                      FiscalReceiptTile(receipt: _notifier.tempReceipts[i]),
+                  childCount: _notifier.tempReceipts.length,
+                ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: MonthTile(),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 16.0,
+                  ),
+                  child: SearchBar(),
+                ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: MonthTile(),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: MonthTile(),
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, i) =>
+                      FiscalReceiptTile(receipt: _notifier.fiscalReceipts[/* i */0]),
+                  childCount: _notifier.fiscalReceipts.length * 50,
+                ),
               ),
             ],
           ),
