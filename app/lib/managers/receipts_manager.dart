@@ -15,4 +15,14 @@ class ReceiptsManager {
     final response = await ApiManager.getDio('User/status');
     print(response.data);
   }
+
+  static Future<bool> validateToken(String token) async {
+    final response = await ApiManager.getDio(
+      'Receipt/validate?transactionId=${token.trim()}',
+    );
+    print(response.data);
+    print(response.status);
+
+    return response.status;
+  }
 }

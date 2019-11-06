@@ -29,7 +29,6 @@ class ApiManager {
         return ApiResponse(
           status: true,
           data: response.data,
-          statusCode: response.data['status'],
         );
       } else {
         print('request failed');

@@ -61,6 +61,18 @@ class _TransactionsListPageState extends State<TransactionsListPage> {
   void _scanQr() async {
     final token = await QrManager.scanToken(context);
     print(token);
+
+    if (token != null) {
+      final result = await ReceiptsManager.validateToken(token);
+
+      print(result);
+      await Future.delayed(Duration(milliseconds: 500));
+
+      showDialog(
+        context: context,
+        builder: (context) => result ? SuccessDialog() : ErrorDialog(),
+      );
+    }
   }
 
   @override
