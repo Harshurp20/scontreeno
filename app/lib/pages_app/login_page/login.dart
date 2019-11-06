@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:scontreeno/misc/palette.dart';
+import 'package:scontreeno/pages_app/transactions_list/transactions_list_page.dart';
 
 class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Padding(
         padding: const EdgeInsets.all(48.0),
         child: Center(
@@ -21,45 +23,74 @@ class LoginPage extends StatelessWidget {
               SizedBox(
                 height: 64.0,
               ),
-              TextField(
-                decoration: InputDecoration(
-                  hintText: 'Email',
-                  hintStyle: TextStyle(color: Colors.grey),
+              Material(
+                elevation: 6.0,
+                shadowColor: Colors.black38,
+                clipBehavior: Clip.antiAlias,
+                borderRadius: BorderRadius.circular(8.0),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: ' Email',
+                    border: InputBorder.none,
+                    hintStyle: TextStyle(color: Colors.grey),
+                  ),
                 ),
               ),
               SizedBox(
                 height: 16.0,
               ),
-              TextField(
-                decoration: InputDecoration(
-                  hintText: 'Password',
-                  hintStyle: TextStyle(color: Colors.grey),
+              Material(
+                elevation: 6.0,
+                shadowColor: Colors.black38,
+                clipBehavior: Clip.antiAlias,
+                borderRadius: BorderRadius.circular(8.0),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: ' Password',
+                    border: InputBorder.none,
+                    hintStyle: TextStyle(color: Colors.grey),
+                  ),
                 ),
               ),
               SizedBox(
-                height: 32.0,
+                height: 64.0,
               ),
-              OutlineButton(
-                child: Text('Login'),
-                onPressed: () {},
+              RaisedButton(
+                color: Palette.lightBlue,
+                textColor: Colors.white,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text('Login'),
+                  ],
+                ),
+                onPressed: () => Navigator.pushReplacement(
+                  context,
+                  new MaterialPageRoute(
+                    builder: (context) => TransactionsListPage(),
+                  ),
+                ),
               ),
               Text('oppure'),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  OutlineButton(
-                    child: Row(
-                      children: <Widget>[
-                        Icon(Icons.lock_outline),
-                        SizedBox(
-                          width: 8.0,
-                        ),
-                        Text('Entra con SPID'),
-                      ],
+              RaisedButton(
+                textColor: Colors.white,
+                color: Colors.blue,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(Icons.lock_outline),
+                    SizedBox(
+                      width: 8.0,
                     ),
-                    onPressed: () {},
+                    Text('Entra con SPID'),
+                  ],
+                ),
+                onPressed: () => Navigator.pushReplacement(
+                  context,
+                  new MaterialPageRoute(
+                    builder: (context) => TransactionsListPage(),
                   ),
-                ],
+                ),
               ),
             ],
           ),
