@@ -21,6 +21,7 @@ class _AnimationWidgetState extends State<AnimationWidget>
           'res/images/loadingAnimation.flr',
           controller: this,
           animation: 'Untitled',
+          fit: BoxFit.cover,
         ),
       ),
     );
