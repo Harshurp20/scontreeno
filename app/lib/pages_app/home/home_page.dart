@@ -31,8 +31,6 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void _scanQR() {}
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

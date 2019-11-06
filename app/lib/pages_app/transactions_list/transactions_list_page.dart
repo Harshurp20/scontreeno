@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:provider/provider.dart';
+import 'package:scontreeno/managers/qr_manager.dart';
 import 'package:scontreeno/misc/consts.dart';
 import 'package:scontreeno/misc/palette.dart';
 import 'package:scontreeno/pages_app/transactions_list/widgets/month_header.dart';
@@ -45,6 +46,11 @@ class _TransactionsListPageState extends State<TransactionsListPage> {
   void dispose() {
     super.dispose();
     _scrollController.dispose();
+  }
+
+  void _scanQr() async {
+    final token = await QrManager.scanToken(context);
+    print(token);
   }
 
   @override
@@ -94,7 +100,7 @@ class _TransactionsListPageState extends State<TransactionsListPage> {
                   icon: Icon(Icons.camera_alt),
                   foregroundColor: Colors.white,
                   backgroundColor: Palette.lightBlue,
-                  onPressed: () {},
+                  onPressed: _scanQr,
                 ),
                 SizedBox(
                   height: 32.0,
