@@ -30,7 +30,23 @@ class _DashboardPageState extends State<DashboardPage> {
           Container(
             width: MediaQuery.of(context).size.width,
             height: 64.0,
-            color: Colors.red,
+            color: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    'SconTreeNo',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24.0,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,16 +54,56 @@ class _DashboardPageState extends State<DashboardPage> {
               Container(
                 height: MediaQuery.of(context).size.height - 64.0,
                 width: 64.0,
-                color: Palette.lightBlue,
+                color: Colors.white,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Icon(
+                        Icons.bubble_chart,
+                        color: Palette.lightBlue,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Icon(
+                        Icons.list,
+                        color: Colors.black38,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Icon(
+                        Icons.mail,
+                        color: Colors.black38,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Icon(
+                        Icons.message,
+                        color: Colors.black38,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Icon(
+                        Icons.settings,
+                        color: Colors.black38,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               Padding(
-                padding: EdgeInsets.all(16.0),
+                padding: EdgeInsets.all(20.0),
                 child: Material(
                   elevation: 6.0,
-                  shadowColor: Colors.black54,
+                  shadowColor: Color(0xFF999999),
                   child: Container(
-                    height: MediaQuery.of(context).size.height - 64.0 - 32.0,
-                    width: MediaQuery.of(context).size.width - 64.0 - 32.0,
+                    height: MediaQuery.of(context).size.height - 64.0 - 40.0,
+                    width: MediaQuery.of(context).size.width - 64.0 - 40.0,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -102,7 +158,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                     ),
                                     Column(
                                       children: List.generate(
-                                        5,
+                                        20,
                                         (index) => Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceEvenly,
@@ -167,23 +223,11 @@ class _DashboardPageState extends State<DashboardPage> {
                                       ],
                                     ),
                                     SizedBox(
-                                      height: 16.0,
-                                    ),
-                                    Row(
-                                      children: <Widget>[],
-                                    ),
-                                    Text(
-                                      'Lista scontrini',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 8.0,
+                                      height: 38.0,
                                     ),
                                     Column(
                                       children: List.generate(
-                                        5,
+                                        20,
                                         (index) => Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceEvenly,
