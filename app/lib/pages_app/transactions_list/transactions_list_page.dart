@@ -5,6 +5,8 @@ import 'package:scontreeno/managers/qr_manager.dart';
 import 'package:scontreeno/managers/receipts_manager.dart';
 import 'package:scontreeno/misc/consts.dart';
 import 'package:scontreeno/misc/palette.dart';
+import 'package:scontreeno/pages_app/misc/error_dialog.dart';
+import 'package:scontreeno/pages_app/misc/success_dialog.dart';
 import 'package:scontreeno/pages_app/transactions_list/widgets/animation_widget.dart';
 import 'package:scontreeno/pages_app/transactions_list/widgets/month_header.dart';
 import 'package:scontreeno/pages_app/transactions_list/widgets/month_tile.dart';
@@ -91,7 +93,14 @@ class _TransactionsListPageState extends State<TransactionsListPage> {
                 child: Switch(
                   value: _notifier.nfcStatus,
                   activeColor: Colors.white,
-                  onChanged: (_) => _notifier.changeNFCState(),
+                  onChanged: (_) {
+                    showDialog(
+                      context: context,
+                      builder: (context) =>
+                          _notifier.nfcStatus ? SuccessDialog() : ErrorDialog(),
+                    );
+                    _notifier.changeNFCState();
+                  },
                 ),
               ),
             ],
