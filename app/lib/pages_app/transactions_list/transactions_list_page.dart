@@ -1,7 +1,9 @@
+import 'package:flare_flutter/flare_actor.dart';
 import "package:flutter/material.dart";
 import 'package:provider/provider.dart';
 import 'package:scontreeno/misc/consts.dart';
 import 'package:scontreeno/misc/palette.dart';
+import 'package:scontreeno/pages_app/transactions_list/widgets/animation_widget.dart';
 import 'package:scontreeno/pages_app/transactions_list/widgets/month_header.dart';
 import 'package:scontreeno/pages_app/transactions_list/widgets/month_tile.dart';
 import 'package:scontreeno/pages_app/transactions_list/widgets/search_bar.dart';
@@ -106,34 +108,39 @@ class _TransactionsListPageState extends State<TransactionsListPage> {
         alignment: AlignmentDirectional.topCenter,
         children: <Widget>[
           StatsAppbar(hide: _showMonthHeader),
-          ListView(
-            controller: _scrollController,
-            padding: EdgeInsets.only(top: 230.0, left: 16.0, right: 16.0),
-            children: <Widget>[
-              MonthTile(),
-              SearchBar(),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: MonthTile(),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: MonthTile(),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: MonthTile(),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: MonthTile(),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: MonthTile(),
-              ),
-            ],
-          ),
+          _notifier.loading
+              ? Padding(
+                  padding: EdgeInsets.only(top: 450.0),
+                  child: AnimationWidget(),
+                )
+              : ListView(
+                  controller: _scrollController,
+                  padding: EdgeInsets.only(top: 240.0, left: 16.0, right: 16.0),
+                  children: <Widget>[
+                    MonthTile(),
+                    SearchBar(),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16.0),
+                      child: MonthTile(),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16.0),
+                      child: MonthTile(),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16.0),
+                      child: MonthTile(),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16.0),
+                      child: MonthTile(),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16.0),
+                      child: MonthTile(),
+                    ),
+                  ],
+                ),
           MonthHeader(showMonthHeader: _showMonthHeader),
         ],
       ),
