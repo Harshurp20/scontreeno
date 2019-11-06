@@ -1,9 +1,11 @@
+import 'package:flare_flutter/flare_actor.dart';
 import "package:flutter/material.dart";
 import 'package:provider/provider.dart';
 import 'package:scontreeno/managers/qr_manager.dart';
 import 'package:scontreeno/managers/receipts_manager.dart';
 import 'package:scontreeno/misc/consts.dart';
 import 'package:scontreeno/misc/palette.dart';
+import 'package:scontreeno/pages_app/transactions_list/widgets/animation_widget.dart';
 import 'package:scontreeno/pages_app/transactions_list/widgets/month_header.dart';
 import 'package:scontreeno/pages_app/transactions_list/widgets/month_tile.dart';
 import 'package:scontreeno/pages_app/transactions_list/widgets/receipt_tile.dart';
@@ -157,6 +159,11 @@ class _TransactionsListPageState extends State<TransactionsListPage> {
             ],
           ),
           MonthHeader(showMonthHeader: _showMonthHeader),
+          /* if (_notifier.loading)
+            Padding(
+              padding: EdgeInsets.only(top: 450.0),
+              child: AnimationWidget(),
+            ), */
         ],
       ),
     );

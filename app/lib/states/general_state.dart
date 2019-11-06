@@ -1,11 +1,13 @@
 import 'dart:collection';
-
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:scontreeno/models/receipt.dart';
 import 'package:scontreeno/models/transaction_article.dart';
 
 class GeneralState with ChangeNotifier {
   bool _isNFCactive = true;
+  bool _isLoading = true;
+
   List<FiscalReceipt> _fiscalReceipts = [
     FiscalReceipt(
       shopName: 'McDonald\'s',
@@ -30,6 +32,12 @@ class GeneralState with ChangeNotifier {
       time: DateTime.now(),
     ),
   ];
+  bool get loading => _isLoading;
+
+  void changeLoadingState() {
+    _isLoading = !_isLoading;
+    notifyListeners();
+  }
 
   void addReceipt(Receipt receipt) {
     if (receipt is FiscalReceipt) {
