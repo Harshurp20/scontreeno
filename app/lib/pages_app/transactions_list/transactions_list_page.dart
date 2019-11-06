@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:provider/provider.dart';
 import 'package:scontreeno/managers/qr_manager.dart';
+import 'package:scontreeno/managers/receipts_manager.dart';
 import 'package:scontreeno/misc/consts.dart';
 import 'package:scontreeno/misc/palette.dart';
 import 'package:scontreeno/pages_app/transactions_list/widgets/month_header.dart';
@@ -30,6 +31,10 @@ class _TransactionsListPageState extends State<TransactionsListPage> {
     _searchController = TextEditingController();
 
     _scrollController.addListener(_scrollNotifier);
+
+    ReceiptsManager.getStatistics();
+    ReceiptsManager.getReceipts();
+    ReceiptsManager.getStatus();
   }
 
   void _scrollNotifier() {
@@ -144,8 +149,8 @@ class _TransactionsListPageState extends State<TransactionsListPage> {
               ),
               SliverList(
                 delegate: SliverChildBuilderDelegate(
-                  (context, i) =>
-                      FiscalReceiptTile(receipt: _notifier.fiscalReceipts[/* i */0]),
+                  (context, i) => FiscalReceiptTile(
+                      receipt: _notifier.fiscalReceipts[/* i */ 0]),
                   childCount: _notifier.fiscalReceipts.length * 50,
                 ),
               ),
