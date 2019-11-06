@@ -35,13 +35,81 @@ class _AddReceiptDialogState extends State<AddReceiptDialog> {
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Text(
-                'Emetti scontrino',
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 32.0,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    'Emetti scontrino',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 32.0,
+                    ),
+                  ),
+                  Material(
+                    elevation: 4.0,
+                    shadowColor: Color(0xffaaaaaa),
+                    clipBehavior: Clip.antiAlias,
+                    borderRadius: BorderRadius.circular(10.0),
+                    color: Colors.white,
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          color: Palette.lightBlue,
+                          height: 48.0,
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 24.0),
+                            child: Center(
+                              child: Row(
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.attach_money,
+                                    color: Colors.white,
+                                    size: 22.0,
+                                  ),
+                                  SizedBox(width: 6.0),
+                                  Text(
+                                    'Fiscale',
+                                    style: TextStyle(
+                                      fontSize: 20.0,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          // color: Palette.lightBlue,
+                          height: 48.0,
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 24.0),
+                            child: Center(
+                              child: Row(
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.access_time,
+                                    size: 20.0,
+                                  ),
+                                  SizedBox(width: 6.0),
+                                  Text(
+                                    'Temporaneo',
+                                    style: TextStyle(
+                                      fontSize: 20.0,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
               SizedBox(height: 32.0),
               Expanded(
@@ -173,7 +241,7 @@ class _AddReceiptDialogState extends State<AddReceiptDialog> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            'Terminale cSd783fo',
+                            'Terminale #287305',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20.0,
