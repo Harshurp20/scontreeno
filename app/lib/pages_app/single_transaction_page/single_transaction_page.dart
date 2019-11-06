@@ -1,10 +1,12 @@
 import 'dart:async';
 
+import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:scontreeno/misc/palette.dart';
 import 'package:scontreeno/models/receipt.dart';
 import 'package:scontreeno/pages_app/single_transaction_page/receiptPainter.dart';
+import 'package:scontreeno/pages_app/transactions_list/widgets/animation_widget.dart';
 import 'package:scontreeno/states/general_state.dart';
 
 const double RECTANGLE_WIDTH = 330.0;
@@ -34,14 +36,18 @@ class SingleTransactionPage extends StatefulWidget {
 
 class _SingleTransactionPageState extends State<SingleTransactionPage> {
   bool receiptAnimation = false;
+  double receiptHeigth = 0.0;
   @override
   Widget build(BuildContext context) {
-    Timer(const Duration(milliseconds: 800), () {
-      if (mounted)
-        setState(() {
-          receiptAnimation = true;
-        });
-    });
+    if (!receiptAnimation)
+      Timer(const Duration(milliseconds: 3500), () {
+        if (mounted) {
+          receiptHeigth = widget.receipt.articles.length * 26.0 + 60.0;
+          setState(() {
+            receiptAnimation = true;
+          });
+        }
+      });
     return Scaffold(
       body: Stack(
         overflow: Overflow.visible,
@@ -75,29 +81,55 @@ class _SingleTransactionPageState extends State<SingleTransactionPage> {
               ),
             ),
           ),
+          if (!receiptAnimation)
+            Padding(
+              child: AnimationWidget(),
+              padding: EdgeInsets.only(top: 350.0),
+            ),
           AnimatedPositioned(
-            duration: Duration(milliseconds: 800),
+            duration: Duration(milliseconds: 900),
             width: RECTANGLE_WIDTH - 32.0,
-            height: 350.0,
-            top: receiptAnimation ? 248.0 : 248.0 - 350.0,
+            height: receiptHeigth,
+            top: receiptAnimation ? 248.0 : 248.0 - receiptHeigth,
             curve: Curves.elasticInOut,
             child: CustomPaint(
               painter: RecepitPainter(),
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: List.generate(
-                    widget.receipt.articles.length + 1,
-                    (index) => index == widget.receipt.articles.length
-                        ? Padding(
-                            padding: EdgeInsets.only(top: 16.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: widget.receipt.articles.length + 1,
+                  itemBuilder: (context, index) =>
+                      index == widget.receipt.articles.length
+                          ? Padding(
+                              padding: EdgeInsets.only(top: 16.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
+                                  Text(
+                                    'Totale: ${widget.receipt.articles.fold<double>(0.0, (prev, next) => prev + next.tot).toStringAsFixed(2)}€',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 18.0,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 Text(
-                                  'Totale: ${widget.receipt.articles.fold<double>(0.0, (prev, next) => prev + next.tot).toStringAsFixed(2)}',
+                                  widget.receipt.articles[index].title,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 18.0,
+                                  ),
+                                ),
+                                Text(
+                                  widget.receipt.articles[index].tot
+                                          .toStringAsFixed(2) +
+                                      '€',
                                   style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 18.0,
@@ -105,29 +137,6 @@ class _SingleTransactionPageState extends State<SingleTransactionPage> {
                                 ),
                               ],
                             ),
-                          )
-                        : Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Text(
-                                widget.receipt.articles[index].title,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 18.0,
-                                ),
-                              ),
-                              Text(
-                                widget.receipt.articles[index].tot
-                                        .toStringAsFixed(2) +
-                                    '€',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 18.0,
-                                ),
-                              ),
-                            ],
-                          ),
-                  ),
                 ),
               ),
             ),
