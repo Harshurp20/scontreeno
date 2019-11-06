@@ -1,5 +1,3 @@
-import 'package:flare_flutter/flare_actor.dart';
-import 'package:flare_flutter/flare_controller.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:scontreeno/models/receipt.dart';
@@ -7,7 +5,7 @@ import 'package:scontreeno/models/receipt.dart';
 class GeneralState with ChangeNotifier {
   bool _isNFCactive = true;
 
-  bool _isLoading = true;
+  bool _isLoading = false;
 
   List<Receipt> receipts = [
     Receipt(
