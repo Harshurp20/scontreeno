@@ -28,8 +28,10 @@ class GeneralState with ChangeNotifier {
   Future loadReceipts() async {
     _fiscalReceipts.clear();
 
-    final receipts = await ReceiptsManager.getReceipts();
-    _fiscalReceipts.addAll(receipts ?? []);
+    final receipts = (await ReceiptsManager.getReceipts()) ?? [];
+    _fiscalReceipts.addAll(
+      receipts..sort((a, b) => b.time.compareTo(a.time)),
+    );
 
     notifyListeners();
   }
