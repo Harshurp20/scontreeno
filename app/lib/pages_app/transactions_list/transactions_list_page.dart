@@ -1,10 +1,12 @@
 import 'package:flare_flutter/flare_actor.dart';
 import "package:flutter/material.dart";
 import 'package:provider/provider.dart';
+import 'package:scontreeno/managers/api_manager.dart';
 import 'package:scontreeno/managers/qr_manager.dart';
 import 'package:scontreeno/managers/receipts_manager.dart';
 import 'package:scontreeno/misc/consts.dart';
 import 'package:scontreeno/misc/palette.dart';
+import 'package:scontreeno/models/transaction_article.dart';
 import 'package:scontreeno/pages_app/misc/error_dialog.dart';
 import 'package:scontreeno/pages_app/misc/success_dialog.dart';
 import 'package:scontreeno/pages_app/transactions_list/widgets/animation_widget.dart';

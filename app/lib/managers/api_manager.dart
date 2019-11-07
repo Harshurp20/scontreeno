@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:dio/dio.dart' as dio;
+import 'package:http/http.dart' as http;
 import 'package:scontreeno/models/api_response.dart';
 
 class ApiManager {
@@ -11,7 +12,11 @@ class ApiManager {
     Map<String, dynamic> data,
     Function(int, int) onSendProgress,
   }) async {
+    print('get dio');
+
     try {
+      print(method);
+
       dio.Dio dioClient = dio.Dio();
       // (dioClient.httpClientAdapter as dio.DefaultHttpClientAdapter)
       //     .onHttpClientCreate = (client) {
@@ -44,29 +49,33 @@ class ApiManager {
     }
   }
 
-  static Future<ApiResponse> postDio(
+  static Future<ApiResponse> post(
     String method,
     dynamic data,
   ) async {
-    try {
-      dio.FormData formData = dio.FormData.fromMap(data);
-      dio.Dio dioClient = dio.Dio();
+    print('post http');
 
-      final response = await dioClient.post(
-        API_URL,
-        data: data,
+    try {
+      print('will start posting to $method -> $data');
+      print(jsonEncode(data));
+
+      final response = await http.post(
+        API_URL + method,
+        body: jsonEncode(data),
       );
+
+      print(response.statusCode);
 
       if (response.statusCode == 200) {
         print('request was successfull');
 
         return ApiResponse(
           status: true,
-          data: response.data['data'],
+          data: response.body,
         );
       } else {
         print('\n| server returned ${response.statusCode} |');
-        print(response.data);
+        print(response.body);
 
         return ApiResponse(status: false);
       }

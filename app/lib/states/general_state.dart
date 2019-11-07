@@ -22,7 +22,7 @@ class GeneralState with ChangeNotifier {
   bool get loading => _isLoading;
 
   GeneralState() {
-    loadReceipts();
+    if (!kIsWeb) loadReceipts();
   }
 
   Future loadReceipts() async {

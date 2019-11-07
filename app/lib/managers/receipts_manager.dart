@@ -33,8 +33,4 @@ class ReceiptsManager {
 
     return response.status;
   }
-
-  static Future addReceipt(List<TransactionArticle> articles) async {
-    final response = await ApiManager.getDio('User/status');
-  }
 }

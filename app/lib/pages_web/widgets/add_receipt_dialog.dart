@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scontreeno/managers/api_manager.dart';
 import 'package:scontreeno/misc/palette.dart';
-import 'package:scontreeno/models/receipt.dart';
 import 'package:scontreeno/models/transaction_article.dart';
 
 class AddReceiptDialog extends StatefulWidget {
@@ -23,7 +22,7 @@ class _AddReceiptDialogState extends State<AddReceiptDialog> {
   }
 
   void _sendData() async {
-    await ApiManager.postDio(
+    await ApiManager.post(
       'Receipt?type=2&view=4',
       _articles
           .map<Map>(
