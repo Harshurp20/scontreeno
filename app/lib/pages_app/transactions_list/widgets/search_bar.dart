@@ -4,7 +4,7 @@ class SearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12.0),
+      padding: const EdgeInsets.symmetric(vertical: 0.0),
       child: Material(
         clipBehavior: Clip.antiAlias,
         borderRadius: BorderRadius.circular(10.0),

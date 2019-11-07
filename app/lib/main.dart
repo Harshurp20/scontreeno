@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:scontreeno/pages_app/login_page/login.dart';
 import 'package:scontreeno/pages_app/transactions_list/transactions_list_page.dart';
 import 'package:scontreeno/pages_web/dashboard/dashboard_page.dart';
 import 'package:scontreeno/states/general_state.dart';
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'GoogleSans',
         primarySwatch: Colors.green,
       ),
-      home: kIsWeb ? DashboardPage() : TransactionsListPage(),
+      home: kIsWeb ? DashboardPage() : LoginPage(),
     );
   }
 }

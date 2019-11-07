@@ -37,7 +37,7 @@ class FiscalReceiptTile extends StatelessWidget {
                         shape: CircleBorder(),
                         clipBehavior: Clip.antiAlias,
                         child: receipt.shopImageURL != null
-                            ? Image.asset(
+                            ? Image.network(
                                 receipt.shopImageURL,
                                 fit: BoxFit.cover,
                               )
@@ -79,7 +79,12 @@ class FiscalReceiptTile extends StatelessWidget {
                           ),
                           if (receipt is FiscalReceipt)
                             Text(
-                              receipt.time.toIso8601String(),
+                              '${receipt.time.day} ' +
+                                  Mesi.values
+                                      .toList()[receipt.time.month]
+                                      .toString()
+                                      .split('.')[1] +
+                                  ' ${receipt.time.year} ${receipt.time.hour.toString().padLeft(2, '0')}:${receipt.time.minute.toString().padLeft(2, '0')}',
                               style: TextStyle(
                                 fontSize: 13.0,
                                 color: Colors.black38,

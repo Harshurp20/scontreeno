@@ -42,7 +42,7 @@ class _SingleTransactionPageState extends State<SingleTransactionPage> {
     if (!receiptAnimation)
       Timer(const Duration(milliseconds: 3500), () {
         if (mounted) {
-          receiptHeigth = widget.receipt.articles.length * 26.0 + 60.0;
+          receiptHeigth = widget.receipt.articles.length * 26.0 + 60.0 + 42.0;
           setState(() {
             receiptAnimation = true;
           });
@@ -171,7 +171,7 @@ class _SingleTransactionPageState extends State<SingleTransactionPage> {
                           shape: CircleBorder(),
                           clipBehavior: Clip.antiAlias,
                           child: widget.receipt.shopImageURL != null
-                              ? Image.asset(
+                              ? Image.network(
                                   widget.receipt.shopImageURL,
                                   fit: BoxFit.cover,
                                 )

@@ -35,10 +35,6 @@ class _TransactionsListPageState extends State<TransactionsListPage> {
     _searchController = TextEditingController();
 
     _scrollController.addListener(_scrollNotifier);
-
-    ReceiptsManager.getStatistics();
-    ReceiptsManager.getReceipts();
-    ReceiptsManager.getStatus();
   }
 
   void _scrollNotifier() {
@@ -134,43 +130,50 @@ class _TransactionsListPageState extends State<TransactionsListPage> {
         alignment: AlignmentDirectional.topCenter,
         children: <Widget>[
           StatsAppbar(hide: _showMonthHeader),
-          CustomScrollView(
-            controller: _scrollController,
-            slivers: <Widget>[
-              SliverToBoxAdapter(child: SizedBox(height: 230.0)),
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16.0,
-                    vertical: 16.0,
+          RefreshIndicator(
+            onRefresh: () {
+              print('on refresh');
+              return _notifier.loadReceipts();
+            },
+            child: CustomScrollView(
+              controller: _scrollController,
+              slivers: <Widget>[
+                SliverToBoxAdapter(child: SizedBox(height: 230.0)),
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 16.0,
+                    ),
+                    child: MonthTile(),
                   ),
-                  child: MonthTile(),
                 ),
-              ),
-              SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, i) =>
-                      FiscalReceiptTile(receipt: _notifier.tempReceipts[i]),
-                  childCount: _notifier.tempReceipts.length,
-                ),
-              ),
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16.0,
-                    vertical: 16.0,
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, i) =>
+                        FiscalReceiptTile(receipt: _notifier.tempReceipts[i]),
+                    childCount: _notifier.tempReceipts.length,
                   ),
-                  child: SearchBar(),
                 ),
-              ),
-              SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, i) => FiscalReceiptTile(
-                      receipt: _notifier.fiscalReceipts[/* i */ 0]),
-                  childCount: _notifier.fiscalReceipts.length * 50,
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 16.0,
+                    ),
+                    child: SearchBar(),
+                  ),
                 ),
-              ),
-            ],
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, i) =>
+                        FiscalReceiptTile(receipt: _notifier.fiscalReceipts[i]),
+                    childCount: _notifier.fiscalReceipts.length,
+                  ),
+                ),
+                SliverToBoxAdapter(child: SizedBox(height: 100.0)),
+              ],
+            ),
           ),
           MonthHeader(showMonthHeader: _showMonthHeader),
           /* if (_notifier.loading)

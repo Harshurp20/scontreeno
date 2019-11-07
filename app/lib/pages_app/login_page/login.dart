@@ -15,11 +15,10 @@ class LoginPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Image.asset(
-                'res/images/me.jpg',
+                'res/images/logo_circle.png',
                 height: 128.0,
                 width: 128.0,
               ),
-              Text('Da modificare con il logo dell app'),
               SizedBox(
                 height: 64.0,
               ),

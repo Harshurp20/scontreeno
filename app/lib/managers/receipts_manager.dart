@@ -1,10 +1,17 @@
 import 'package:scontreeno/managers/api_manager.dart';
+import 'package:scontreeno/models/receipt.dart';
 import 'package:scontreeno/models/transaction_article.dart';
 
 class ReceiptsManager {
-  static Future getReceipts() async {
+  static Future<List<FiscalReceipt>> getReceipts() async {
     final response = await ApiManager.getDio('User/history');
-    print(response.data);
+
+    final List<FiscalReceipt> receipts = List.from(response.data['receipts'])
+        .map<FiscalReceipt>((r) => FiscalReceipt.fromMap(r))
+        .toList();
+    print(receipts.length);
+
+    return receipts;
   }
 
   static Future getStatistics() async {
