@@ -15,18 +15,18 @@ class ReceiptList extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Text(
-                Random.secure().nextInt(5555).toStringAsFixed(0),
+                Random().nextInt(55555).toStringAsFixed(0),
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               Text(
                   '${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year} ' +
                       '${DateTime.now().hour}:${DateTime.now().minute}'),
               Text(
-                '13 articoli',
+                '${Random().nextInt(15) + 2} articoli',
                 style: TextStyle(color: Colors.grey),
               ),
               Text(
-                '137,21€',
+                '${Random().nextInt(400) + 20},${Random().nextInt(99) + 2}€',
                 style: TextStyle(
                   color: Palette.lightBlue,
                   fontWeight: FontWeight.w600,

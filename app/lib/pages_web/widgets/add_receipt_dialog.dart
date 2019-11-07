@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scontreeno/managers/api_manager.dart';
 import 'package:scontreeno/misc/palette.dart';
 import 'package:scontreeno/models/receipt.dart';
 import 'package:scontreeno/models/transaction_article.dart';
@@ -19,6 +20,21 @@ class _AddReceiptDialogState extends State<AddReceiptDialog> {
     print(index);
     _articles.forEach((a) => print('${a?.title}:${a?.tot}'));
     setState(() => _articles.removeAt(index));
+  }
+
+  void _sendData() async {
+    await ApiManager.postDio(
+      'Receipt?type=2&view=4',
+      _articles
+          .map<Map>(
+            (a) => {
+              "name": a.title,
+              "price": a.tot,
+            },
+          )
+          .toList(),
+    );
+    Navigator.pop(context);
   }
 
   @override
@@ -293,7 +309,7 @@ class _AddReceiptDialogState extends State<AddReceiptDialog> {
                         color: Palette.lightBlue,
                         shadowColor: Color(0xff999999),
                         child: InkWell(
-                          onTap: () => Navigator.pop(context),
+                          onTap: _sendData,
                           child: Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: Text(

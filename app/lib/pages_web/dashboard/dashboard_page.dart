@@ -46,9 +46,22 @@ class _DashboardPageState extends State<DashboardPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    'SconTreeNo',
+                    'SconTreeNo > ',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
+                      fontSize: 24.0,
+                    ),
+                  ),
+                  Text(
+                    'Dashboard > ',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 24.0,
+                    ),
+                  ),
+                  Text(
+                    'Nome Negozio',
+                    style: TextStyle(
                       fontSize: 24.0,
                     ),
                   ),
@@ -148,7 +161,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                       height:
                                           MediaQuery.of(context).size.height -
                                               144.0 -
-                                              191.0,
+                                              195.0,
                                       child: ReceiptList(),
                                     ),
                                   ],
@@ -161,8 +174,9 @@ class _DashboardPageState extends State<DashboardPage> {
                                     Text(
                                       'Questo mese',
                                       style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18.0),
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18.0,
+                                      ),
                                     ),
                                     Chart(),
                                     SizedBox(
@@ -172,7 +186,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                       height:
                                           MediaQuery.of(context).size.height -
                                               144.0 -
-                                              191.0,
+                                              195.0,
                                       child: ReceiptList(),
                                     ),
                                   ],

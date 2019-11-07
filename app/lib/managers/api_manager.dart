@@ -43,4 +43,38 @@ class ApiManager {
       return ApiResponse(status: false);
     }
   }
+
+  static Future<ApiResponse> postDio(
+    String method,
+    dynamic data,
+  ) async {
+    try {
+      dio.FormData formData = dio.FormData.fromMap(data);
+      dio.Dio dioClient = dio.Dio();
+
+      final response = await dioClient.post(
+        API_URL,
+        data: data,
+      );
+
+      if (response.statusCode == 200) {
+        print('request was successfull');
+
+        return ApiResponse(
+          status: true,
+          data: response.data['data'],
+        );
+      } else {
+        print('\n| server returned ${response.statusCode} |');
+        print(response.data);
+
+        return ApiResponse(status: false);
+      }
+    } catch (ex, stack) {
+      print(ex);
+      print(stack);
+
+      return ApiResponse(status: false);
+    }
+  }
 }
