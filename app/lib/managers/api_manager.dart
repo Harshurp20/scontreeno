@@ -62,12 +62,14 @@ class ApiManager {
       final response = await http.post(
         API_URL + method,
         body: jsonEncode(data),
+        headers: {"Content-Type": "application/json"},
       );
 
       print(response.statusCode);
 
       if (response.statusCode == 200) {
         print('request was successfull');
+        print(response.body);
 
         return ApiResponse(
           status: true,
